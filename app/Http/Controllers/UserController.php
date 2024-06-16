@@ -18,7 +18,7 @@ class UserController extends Controller
             $request->session()->regenerate();
         }
         return redirect('/');
-        
+    
     }
 
     public function logout(){

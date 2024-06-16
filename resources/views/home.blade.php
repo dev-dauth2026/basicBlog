@@ -34,6 +34,33 @@
             @csrf 
             <button> Log Out</button>
             </form>
+
+            <div style="margin: 10px; border:2px black solid; padding:10px">
+                <h2>Create new post</h2>
+                <form action="/create-post" method="POST">
+                    @csrf
+                    <input type="text" name="title" placeholder="title">
+                    <textarea type="text" name="body" placeholder="body"></textarea>
+                    <button type="submit">Create New Post</button>
+                </form>
+            </div>
+            <div style="margin: 10px; border:2px black solid; padding:10px">
+                <h2>All Posts</h2>
+                @foreach($posts as $post)
+                    <div style="background:lightgray;margin:10px; padding: 10px">
+                        <h2>Title: {{$post['title']}} <small style="color: rgb(192, 179, 179), 138)">by  {{$post->user->name}}</small>  </h2>
+                        <p>Body: {{$post['body']}}</p>
+                        <p><a href='/edit-post/{{$post->id}}'>Edit</a></p>
+                        <form action="/delete-post/{{$post->id}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button>Delete</button>
+                        </form>
+                    </div>
+                
+                @endforeach
+            </div>
+
         @else
         <h2>Registration Form</h2>
         <form action="/register" method="post">
